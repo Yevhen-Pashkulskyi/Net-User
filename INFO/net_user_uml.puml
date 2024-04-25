@@ -1,0 +1,34 @@
+@startuml
+class org.example.user.NetUser {
+~ {static} String HOST
+~ {static} int PORT
++ {static} void main(String[])
+}
+
+
+class org.example.server.NetUserServerHandler {
+~ {static} List<Channel> channels
++ void channelActive(ChannelHandlerContext)
++ void channelRead0(ChannelHandlerContext,String)
++ void exceptionCaught(ChannelHandlerContext,Throwable)
+}
+
+
+class org.example.user.NetUserHandler {
+- CountDownLatch latch
++ void setLatch(CountDownLatch)
+# void channelRead0(ChannelHandlerContext,String)
+}
+
+
+class org.example.server.NetUserServer {
+~ {static} int PORT
++ {static} void main(String[])
+}
+
+
+
+
+io.netty.channel.SimpleChannelInboundHandler <|-- org.example.server.NetUserServerHandler
+io.netty.channel.SimpleChannelInboundHandler <|-- org.example.user.NetUserHandler
+@enduml
