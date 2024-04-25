@@ -10,6 +10,7 @@ import io.netty.handler.codec.string.StringEncoder;
 
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
+import java.util.function.ToDoubleBiFunction;
 
 public final class NetUser {
 
@@ -34,7 +35,7 @@ public final class NetUser {
 
             ChannelFuture f = b.connect(HOST, PORT).sync();
             Channel channel = f.sync().channel();
-
+            //TODO додати Exception
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 CountDownLatch latch = new CountDownLatch(1);
