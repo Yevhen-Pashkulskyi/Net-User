@@ -10,7 +10,7 @@ import io.netty.handler.codec.string.StringEncoder;
 
 import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
-import java.util.function.ToDoubleBiFunction;
+
 
 public final class NetUser {
 
@@ -45,6 +45,7 @@ public final class NetUser {
                 System.out.print("Enter username or 'exit' to quit: ");
                 String username = scanner.nextLine();
                 if ("exit".equalsIgnoreCase(username)) {
+                    channel.close().sync();
                     break;
                 }
                 System.out.print("Enter email: ");
@@ -54,8 +55,8 @@ public final class NetUser {
 
                 latch.await();
             }
+            group.shutdownGracefully();
 
-            f.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully();
         }
